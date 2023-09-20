@@ -1,6 +1,6 @@
 import React from 'react';
 
-function StudentInfoComponent(props) {
+function StudentInfoComponent(student) {
     return (
         <div>
             <table border={1}>
@@ -11,7 +11,7 @@ function StudentInfoComponent(props) {
                     <th>Address</th>
                 </tr>
                 {
-                    props.student.map(element => (
+                    student.map(element => (
                         <tr>
                             <td>{element.id}</td>
                             <td>{element.name}</td>
