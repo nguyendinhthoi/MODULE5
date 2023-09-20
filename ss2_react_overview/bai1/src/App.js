@@ -44,8 +44,8 @@ function App() {
                     <th>Contract</th>
                     <th>Country</th>
                 </tr>
-                {students.map(student => (
-                    <tr>
+                {students.map((student,index) => (
+                    <tr key={index}>
                         <td>{student.company}</td>
                         <td>{student.contact}</td>
                         <td>{student.country}</td>
