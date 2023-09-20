@@ -16,7 +16,7 @@ function TodoList() {
             <input value={item} onChange={handleChange} type="text"/>
             <button onClick={handleAddItem}>Submit</button>
             <ul>
-                {list.map(element => <li>{element}</li>)}
+                {list.map(element,index => <li key={index}>{element}</li>)}
             </ul>
         </div>
     );
