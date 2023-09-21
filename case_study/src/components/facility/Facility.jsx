@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useState} from 'react';
 
-function Card() {
+function Facility() {
     const [card, setCard] = useState([
         {
             id: 1,
@@ -63,4 +63,4 @@ function Card() {
     );
 }
 
-export default Card;
+export default Facility;
