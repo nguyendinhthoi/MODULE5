@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {useIncrement} from "../utils/Utils.jsx";
 
 function Count() {
+    const addAmount = 1;
+    const initial = 0;
 
-    const [count, setCount] = useIncrement(1)
+    const [count, setCount] = useIncrement(addAmount,initial)
     const increase = () => {
         setCount()
     }

@@ -3,7 +3,9 @@ import {useIncrement} from "../utils/Utils.jsx";
 
 
 function Count1() {
-    const [count,setCount] = useIncrement(2)
+    const addAmount = 2;
+    const initial = 0;
+    const [count,setCount] = useIncrement(addAmount,initial)
     const increase = () => {
         setCount();
     }
