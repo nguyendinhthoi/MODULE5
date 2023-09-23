@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import LibraryCreate from "./components/LibraryCreate.jsx";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import LibraryEdit from "./components/LibraryEdit.jsx";
 function App() {
 
     return (
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path="" element={<LibraryList/>}></Route>
                 <Route path="/create" element={<LibraryCreate/>}></Route>
+                <Route path="/edit/:id" element={<LibraryEdit/>}></Route>
             </Routes>
             <ToastContainer></ToastContainer>
         </>

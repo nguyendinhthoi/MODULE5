@@ -34,7 +34,7 @@ function LibraryList() {
                         <td>{element.quantity}</td>
                         <td>
                     <span>
-                        <Link to={"/edit"}>
+                        <Link to={`/edit/${element.id}`}>
                             <button>Edit</button>
                         </Link>
                     </span>
