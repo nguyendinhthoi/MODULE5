@@ -1,63 +1,70 @@
-// eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import * as homeService from "../../service/HomeService.jsx"
 
 function Facility() {
-    const [card, setCard] = useState([
-        {
-            id: 1,
-            name: "2 BED",
-            size: 40,
-            img: "https://images.unsplash.com/photo-1695148433469-426328de12b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MH" +
-                "xwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1937&q=80"
-        },
-        {
-            id: 1,
-            name: "2 BED",
-            size: 40,
-            img: "https://images.unsplash.com/photo-1695148433469-426328de12b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MH" +
-                "xwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1937&q=80"
-        },
-        {
-            id: 1,
-            name: "2 BED",
-            size: 40,
-            img: "https://images.unsplash.com/photo-1695148433469-426328de12b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MH" +
-                "xwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1937&q=80"
-        },
-        {
-            id: 1,
-            name: "2 BED",
-            size: 40,
-            img: "https://images.unsplash.com/photo-1695148433469-426328de12b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MH" +
-                "xwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1937&q=80"
-        },
-        {
-            id: 1,
-            name: "2 BED",
-            size: 40,
-            img: "https://images.unsplash.com/photo-1695148433469-426328de12b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MH" +
-                "xwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1937&q=80"
-        },
-    ])
+    const facilityStyle = {
+        background: '#F5F5F5', // Soft Gray background color to match header/footer
+        color: '#333', // Text color (dark gray)
+        fontFamily: 'Arial, sans-serif', // Font family
+        padding: '2rem 0', // Padding for content area
+    };
+
+    const containerStyle = {
+        maxWidth: '960px', // Limit content width for readability
+        margin: '0 auto', // Center content horizontally
+        padding: '0 20px', // Add spacing to the sides
+    };
+
+    const cardStyle = {
+        border: '1px solid #ccc', // Add a border to each card
+        borderRadius: '8px', // Rounded corners
+        marginBottom: '20px', // Spacing between cards
+        background: '#F5F5F5', // Soft Gray card background color
+    };
+
+    const cardImageStyle = {
+        maxWidth: '100%', // Ensure images don't exceed card width
+    };
+
+    const cardTitleStyle = {
+        fontSize: '1.5rem', // Font size for card titles
+        margin: '0', // Remove margin for the card title
+    };
+
+    const cardTextStyles = {
+        fontSize: '1rem', // Font size for card text
+    };
+
+    const [facility, setFacility] = useState([])
+    useEffect(() => {
+        getAllFromFacility()
+    }, []);
+    const getAllFromFacility =async () => {
+        const facility = await homeService.getAllFromFacility()
+        setFacility(facility);
+    }
     return (
-        <div>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
-                {card.map((element) => (
-                    <div key={element.id} className="col">
-                        <div className="card h-100">
-                            <img src={element.img} className="card-img-top" alt={"..."}/>
-                            <div className="card-body">
-                                <h5 className="card-title">{element.name}</h5>
-                                <p className="card-text">Room size: {element.size}</p>
-                            </div>
-                            <div className="card-icons">
-                                <i className="fa">&#xf044;</i>
-                                <i className="fa">&#xf06e;</i>
-                                <i className="material-icons">&#xe872;</i>
+        <div style={facilityStyle}>
+            <div style={containerStyle}>
+                <h2 style={{ textAlign: 'center' }}>Our Facilities</h2>
+                <div className="row">
+                    {facility.map((element) => (
+                        <div key={element.id} className="col-md-4">
+                            <div className="card" style={cardStyle}>
+                                <img src={element.img} className="card-img-top" alt="Room" style={cardImageStyle} />
+                                <div className="card-body">
+                                    <h5 className="card-title" style={cardTitleStyle}>{element.name}</h5>
+                                    <p className="card-text" style={cardTextStyles}>Room size: {element.size} sq. ft</p>
+                                </div>
+                                <div className="card-icons">
+                                    <i className="fa">&#xf044;</i>
+                                    <i className="fa">&#xf06e;</i>
+                                    <i className="material-icons">&#xe872;</i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );
