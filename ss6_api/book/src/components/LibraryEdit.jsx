@@ -6,16 +6,17 @@ import * as libraryService from "../service/LibraryService.jsx";
 import {toast} from "react-toastify";
 
 function LibraryEdit() {
-    const param = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
     const [book, setBook] = useState(null);
     const findBookById = async (bookId) => {
         const res = await libraryService.findById(bookId);
         setBook(res)
     }
+
     const editBook = async (data) => {
-        const res = await libraryService.edit(data, param.id);
-        if (res.status === 201) {
+        const res = await libraryService.edit(data);
+        if (res.status === 200) {
             navigate("/");
             toast("Edit successfully");
         } else {
@@ -24,20 +25,12 @@ function LibraryEdit() {
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            if (param.id != null) {
-                const bookData = await findBookById(param.id);
-                setBook(bookData);
-                console.log(bookData)
-            }
-        };
-
-        fetchData();
-    }, [param.id]);
-
+        findBookById(id);
+    }, [id]);
 
     const initialValues =
         book ? {
+                id: book.id,
                 title: book.title,
                 quantity: book.quantity
             }
@@ -46,6 +39,9 @@ function LibraryEdit() {
                 quantity: 0
             }
 
+    if (!book) {
+        return null;
+    }
 
     return (
         <>
@@ -55,15 +51,13 @@ function LibraryEdit() {
             } onSubmit={(values) => {
                 editBook(values);
             }}>
-                <div>
-                    <Form>
-                        <label htmlFor="title">Title</label>
-                        <Field type="text" id="title" name="title"></Field>
-                        <label htmlFor="quantity">Quantity</label>
-                        <Field type="number" id="quantity" name="quantity"></Field>
-                        <button type="submit">Submit</button>
-                    </Form>
-                </div>
+                <Form>
+                    <label htmlFor="title">Title</label>
+                    <Field type="text" id="title" name="title"></Field>
+                    <label htmlFor="quantity">Quantity</label>
+                    <Field type="number" id="quantity" name="quantity"></Field>
+                    <button type="submit">Submit</button>
+                </Form>
             </Formik>
         </>
     );

@@ -1,16 +1,6 @@
 {
   "library": [
     {
-      "id": 1,
-      "title": "json-server",
-      "quantity": 10
-    },
-    {
-      "title": "qwewqe",
-      "quantity": 12,
-      "id": 2
-    },
-    {
       "title": "qwewqe",
       "quantity": 12,
       "id": 3
@@ -115,6 +105,16 @@
       "title": "thôi",
       "quantity": 0,
       "id": 26
+    },
+    {
+      "title": "ok",
+      "quantity": 1,
+      "id": 27
+    },
+    {
+      "id": 28,
+      "title": "json-server",
+      "quantity": 123
     }
   ]
 }

@@ -20,18 +20,26 @@ export const create = async (data) => {
 
 export const findById = async (bookId) => {
     try {
-        const res = await axios.get(`http://localhost:8080/library?id=${bookId}`)
+        const res = await axios.get(`http://localhost:8080/library/${bookId}`)
         return res.data;
     } catch (e) {
         alert("ID not found");
     }
 };
-export const edit = async (data,bookId) => {
+export const edit = async (data) => {
     try {
-        const res = await axios.post(`http://localhost:8080/library?id=${bookId}`, data)
+        const res = await axios.put(`http://localhost:8080/library/${data.id}`, data)
         return res;
     } catch (e) {
-        alert("Edit Fail");
+        alert("Edit sai");
+    }
+};
+export const deleteBook = async (id) => {
+    try {
+        const res = await axios.delete(`http://localhost:8080/library/${id}`)
+        return res;
+    } catch (e) {
+        alert("Delete fail");
     }
 }
 
