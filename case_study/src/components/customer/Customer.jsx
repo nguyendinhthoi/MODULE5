@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useEffect, useState} from 'react';
 import * as homeService from "../../service/HomeService.jsx"
+import {Link} from "react-router-dom";
 
 function Customer() {
     const [customers, setCustomer] = useState([]);
@@ -20,6 +21,7 @@ function Customer() {
     };
     return (
         <div className="table-responsive">
+            <Link to="CustomerCreate"><button className="btn btn-secondary">Create customer</button></Link>
             <table className="table table-striped table-bordered table-hover" style={tableStyle}>
                 <thead>
                 <tr>

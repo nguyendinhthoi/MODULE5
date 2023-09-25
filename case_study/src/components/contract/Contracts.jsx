@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useEffect, useState} from 'react';
 import * as homeService from '../../service/HomeService.jsx';
+import {Link} from "react-router-dom";
 
 function Contracts() {
     const [contracts, setContract] = useState([]);
@@ -22,6 +23,7 @@ function Contracts() {
 
     return (
         <div className="table-responsive">
+            <Link to="ContractCreate"><button className="btn btn-secondary">Create contract</button></Link>
             <table className="table table-striped table-bordered table-hover" style={tableStyle}>
                 <thead>
                 <tr>
