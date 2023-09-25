@@ -34,3 +34,19 @@ export const createCustomer = async (data) => {
         alert("Access Denied")
     }
 }
+export const createContract = async (data) => {
+    try {
+        const res = await axios.post("http://localhost:8080/contract",data);
+        return res
+    } catch (e) {
+        alert("Access Denied")
+    }
+}
+export const createFacility = async (data) => {
+    try {
+        const res = await axios.post("http://localhost:8080/facility",data);
+        return res
+    } catch (e) {
+        alert("Access Denied")
+    }
+}

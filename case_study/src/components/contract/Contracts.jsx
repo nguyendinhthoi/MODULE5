@@ -23,7 +23,7 @@ function Contracts() {
 
     return (
         <div className="table-responsive">
-            <Link to="ContractCreate"><button className="btn btn-secondary">Create contract</button></Link>
+            <Link to="contractCreate"><button className="btn btn-secondary">Create contract</button></Link>
             <table className="table table-striped table-bordered table-hover" style={tableStyle}>
                 <thead>
                 <tr>

@@ -21,7 +21,7 @@ function Customer() {
     };
     return (
         <div className="table-responsive">
-            <Link to="CustomerCreate"><button className="btn btn-secondary">Create customer</button></Link>
+            <Link to="customerCreate"><button className="btn btn-secondary">Create customer</button></Link>
             <table className="table table-striped table-bordered table-hover" style={tableStyle}>
                 <thead>
                 <tr>

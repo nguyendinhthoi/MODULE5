@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, {useEffect, useState} from 'react';
 import * as homeService from "../../service/HomeService.jsx"
+import {Link} from "react-router-dom";
 
 function Facility() {
     const facilityStyle = {
@@ -46,6 +47,7 @@ function Facility() {
     }
     return (
         <div style={facilityStyle}>
+            <Link to="facilityCreate"><button className="btn btn-secondary">Create contract</button></Link>
             <div style={containerStyle}>
                 <h2 style={{ textAlign: 'center' }}>Our Facilities</h2>
                 <div className="row">
@@ -55,7 +57,8 @@ function Facility() {
                                 <img src={element.img} className="card-img-top" alt="Room" style={cardImageStyle} />
                                 <div className="card-body">
                                     <h5 className="card-title" style={cardTitleStyle}>{element.name}</h5>
-                                    <p className="card-text" style={cardTextStyles}>Room size: {element.size} sq. ft</p>
+                                    <p className="card-text" style={cardTextStyles}>Pool size: {element.size} sq. ft</p>
+                                    <p className="card-text" style={cardTextStyles}>Number of floors: {element.numberFloors}</p>
                                 </div>
                                 <div className="card-icons">
                                     <i className="fa">&#xf044;</i>

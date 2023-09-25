@@ -9,10 +9,10 @@ import * as Yup from "yup"
 
 function ContractCreate() {
     const navigate = useNavigate();
-    const createCustomer = async (data) => {
-        const res = await homeService.createCustomer(data)
+    const createContract = async (data) => {
+        const res = await homeService.createContract(data)
         if (res.status === 201) {
-            navigate("/customer")
+            navigate("/contract")
             toast("Created successfully")
         } else {
             toast.error("Create fail")
@@ -24,174 +24,74 @@ function ContractCreate() {
     return (
         <>
             <Formik initialValues={{
-                fullName: "",
-                dateOfBirth: "",
-                gender: "Male",
-                idCardNumber: "",
-                phoneNumber: "",
-                email: "",
-                customerType: "Member",
-                address: ""
+                contractNumber: "",
+                startDate: "",
+                endDate: "",
+                depositAmount: 0,
+                totalPayment: 0,
             }} onSubmit={(values) => {
-                createCustomer(values)
+                createContract(values)
             }} validationSchema={Yup.object({
-                fullName: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^[A-Z][a-z]+(\s[A-Z][a-z]+)+$/, "Must capitalize the first letter"),
-                dateOfBirth: Yup.string()
+                contractNumber: Yup.string()
                     .required("Not Empty"),
-                idCardNumber: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^\d{9}|\d{12}$/, "9 or 12 numbers"),
-                phoneNumber: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^(?:\(\d+\)\+)?(09[01]\d{7}|(84)\+09[01]\d{7})$/, "The phone number must be " +
-                        "in the correct format 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx"),
-                address: Yup.string()
+                startDate: Yup.string()
                     .required("Not Empty"),
-                email: Yup.string()
-                    .required("Email is required")
-                    .matches(/^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$/, "Invalid email address"),
+                endDate: Yup.string()
+                    .required("Not Empty"),
+                totalPayment: Yup.number()
+                    .required("Not Empty")
+                    .min(1, "Must be > 0"),
+                depositAmount: Yup.number()
+                    .required("Not Empty")
+                    .min(1, "Must be > 0")
             })}
             >
                 <Form className="container" style={formCenter}>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="mb-3">
-                                <label htmlFor="name" className="form-label">
-                                    Full Name
+                                <label htmlFor="contractNumber" className="form-label">
+                                    Contract Number
                                 </label>
-                                <Field type="text" name="fullName" id="name" className="form-control"/>
-                                <ErrorMessage name="fullName" component="div" className="text-danger"/>
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">Gender</label>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="gender"
-                                        id="gender1"
-                                        value="Male"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="gender1" className="form-check-label">
-                                        Male
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="gender"
-                                        id="gender2"
-                                        value="Female"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="gender2" className="form-check-label">
-                                        Female
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="mb-3">
-                                <label htmlFor="phoneNumber" className="form-label">
-                                    Phone Number
-                                </label>
-                                <Field type="text" name="phoneNumber" id="phoneNumber" className="form-control"/>
-                                <ErrorMessage name="phoneNumber" component="div" className="text-danger"/>
+                                <Field type="text" name="contractNumber" id="contractNumber" className="form-control"/>
+                                <ErrorMessage name="contractNumber" component="div" className="text-danger"/>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="dateOfBirth" className="form-label">
-                                    Birthday
+                                <label htmlFor="startDate" className="form-label">
+                                    Start Day
                                 </label>
-                                <Field type="date" name="dateOfBirth" id="dateOfBirth" className="form-control"/>
-                                <ErrorMessage name="dateOfBirth" component="div" className="text-danger"/>
+                                <Field type="date" name="startDate" id="startDate" className="form-control"/>
+                                <ErrorMessage name="startDate" component="div" className="text-danger"/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="endDate" className="form-label">
+                                    End Day
+                                </label>
+                                <Field type="date" name="endDate" id="endDate" className="form-control"/>
+                                <ErrorMessage name="endDate" component="div" className="text-danger"/>
                             </div>
                         </div>
                         <div className="col-md-6">
-
-
                             <div className="mb-3">
-                                <label htmlFor="idCardNumber" className="form-label">
-                                    ID Card
+                                <label htmlFor="depositAmount" className="form-label">
+                                    Deposit Amount
                                 </label>
-                                <Field type="text" name="idCardNumber" id="idCardNumber" className="form-control"/>
-                                <ErrorMessage name="idCardNumber" component="div" className="text-danger"/>
+                                <Field type="number" name="depositAmount" id="depositAmount" className="form-control"/>
+                                <ErrorMessage name="depositAmount" component="div" className="text-danger"/>
                             </div>
-
                             <div className="mb-3">
-                                <label htmlFor="email" className="form-label">
-                                    Email
+                                <label htmlFor="totalPayment" className="form-label">
+                                    Total Payment
                                 </label>
-                                <Field type="text" name="email" id="email" className="form-control"/>
-                                <ErrorMessage name="email" component="div" className="text-danger"/>
-                            </div>
-
-                            <div className="mb-3">
-                                <label className="form-label">Customer Type</label>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType1"
-                                        value="Diamond"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType1" className="form-check-label">
-                                        Diamond
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType2"
-                                        value="Platinum"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType2" className="form-check-label">
-                                        Platinum
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType3"
-                                        value="Silver"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType3" className="form-check-label">
-                                        Silver
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType4"
-                                        value="Member"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType4" className="form-check-label">
-                                        Member
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="mb-3">
-                                <label htmlFor="address" className="form-label">
-                                    Address
-                                </label>
-                                <Field type="text" name="address" id="address" className="form-control"/>
-                                <ErrorMessage name="address" component="div" className="text-danger"/>
+                                <Field type="number" name="totalPayment" id="totalPayment" className="form-control"/>
+                                <ErrorMessage name="totalPayment" component="div" className="text-danger"/>
                             </div>
                         </div>
                     </div>
                     <button type="submit" className="btn btn-primary">
                         Submit
                     </button>
-                    <Link to="/customer">
+                    <Link to="/contract">
                         <button className="btn btn-primary">
                             Back to customer list
                         </button>
