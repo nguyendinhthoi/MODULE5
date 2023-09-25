@@ -18,10 +18,10 @@ function LibraryList() {
         setBook(await libraryService.getAll())
     }
 
-    const deleteModal = (user) => {
-        setSelectedBook(user)
+    const deleteModal = (book) => {
+        setSelectedBook(book)
         setModalStatus(true);
-        console.log(user)
+        console.log(book)
     }
     const closeModal = () => {
         setSelectedBook(null);
