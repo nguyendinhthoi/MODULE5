@@ -21,7 +21,9 @@ function Customer() {
     };
     return (
         <div className="table-responsive">
-            <Link to="customerCreate"><button className="btn btn-secondary">Create customer</button></Link>
+            <Link to="customerCreate">
+                <button className="btn btn-secondary">Create customer</button>
+            </Link>
             <table className="table table-striped table-bordered table-hover" style={tableStyle}>
                 <thead>
                 <tr>
@@ -34,7 +36,7 @@ function Customer() {
                     <th>Email</th>
                     <th>Customer type</th>
                     <th>Address</th>
-                    <th></th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +51,10 @@ function Customer() {
                         <td>{element.email}</td>
                         <td>{element.customerType}</td>
                         <td>{element.address}</td>
+                        <td><Link to={`customerEdit/${element.id}`}>
+                            <i className="fa">&#xf044;</i>
+                        </Link>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

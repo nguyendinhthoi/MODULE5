@@ -61,7 +61,9 @@ function Facility() {
                                     <p className="card-text" style={cardTextStyles}>Number of floors: {element.numberFloors}</p>
                                 </div>
                                 <div className="card-icons">
+                                    <Link to={`facilityEdit/${element.id}`}>
                                     <i className="fa">&#xf044;</i>
+                                    </Link>
                                     <i className="fa">&#xf06e;</i>
                                     <i className="material-icons">&#xe872;</i>
                                 </div>

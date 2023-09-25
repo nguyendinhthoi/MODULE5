@@ -1,45 +1,64 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as homeService from "../../service/HomeService.jsx"
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import * as Yup from "yup"
-import * as homeService from "../../service/HomeService.jsx"
-
 
 function ContractEdit() {
+    const {id} = useParams()
     const navigate = useNavigate();
     const [facility, setFacility] = useState(null);
-    const {id} = useParams()
 
-    const findFacility = async () => {
-        const res = homeService.findFacilityById();
-        setFacility(res)
+    const formCenter = {
+        marginTop: '100px',  // Add margin-top
     }
 
+    const findFacility = async (facilityId) => {
+        const res = await homeService.findFacilityById(facilityId);
+        console.log(res)
+        setFacility(res)
+        console.log(facility)
+    }
 
-    const EditFacility = async (data) => {
-        const res = await homeService.createFacility(data)
-        if (res.status === 201) {
+    const editFacility = async (data) => {
+        const res = await homeService.editFacility(data)
+        if (res.status === 200) {
             navigate("/")
-            toast("Created successfully")
+            toast("Edited successfully")
         } else {
             toast.error("Create fail")
         }
     }
-    const formCenter = {
-        marginTop: '100px',  // Add margin-top
+
+    useEffect(() => {
+        findFacility(id);
+    }, [id]);
+
+    const initialValues =
+        facility ? {
+            id: facility.id,
+            name: facility.name,
+            size: facility.size,
+            numberFloors: facility.numberFloors,
+            img: facility.img
+        } : {
+            name: "",
+            size: 0,
+            numberFloors: 0,
+            img: ""
+        }
+    if (!facility) {
+        return null
     }
+
     return (
         <>
-            <Formik initialValues={{
-                name: "",
-                size: 0,
-                numberFloors: 0,
-                img: ""
-            }} onSubmit={(values) => {
-                EditFacility(values)
+            <Formik initialValues={
+                initialValues
+            } onSubmit={(values) => {
+                editFacility(values)
             }} validationSchema={Yup.object({
                 name: Yup.string()
                     .required("Not Empty")
@@ -77,7 +96,8 @@ function ContractEdit() {
                                 <label htmlFor="numberFloors" className="form-label">
                                     Number of Floors
                                 </label>
-                                <Field type="number" name="numberFloors" id="numberFloors" className="form-control"/>
+                                <Field type="number" name="numberFloors" id="numberFloors"
+                                       className="form-control"/>
                                 <ErrorMessage name="numberFloors" component="div" className="text-danger"/>
                             </div>
                             <div className="mb-3">
@@ -101,6 +121,7 @@ function ContractEdit() {
             </Formik>
         </>
     );
+
 }
 
 export default ContractEdit;
