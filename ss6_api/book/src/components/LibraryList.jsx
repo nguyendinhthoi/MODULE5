@@ -6,8 +6,9 @@ import LibraryDelete from "./LibraryDelete.jsx";
 
 function LibraryList() {
     const [books, setBook] = useState([]);
-    const [deleteButtonId, setDeleteButtonId] = useState(null);
     const [modalStatus, setModalStatus] = useState(false);
+    const [selectedBook, setSelectedBook] = useState()
+
 
     useEffect(() => {
         getAllBook();
@@ -17,9 +18,14 @@ function LibraryList() {
         setBook(await libraryService.getAll())
     }
 
-    const deleteModal = (id) => {
-        setDeleteButtonId(id);
+    const deleteModal = (user) => {
+        setSelectedBook(user)
         setModalStatus(true);
+        console.log(user)
+    }
+    const closeModal = () => {
+        setSelectedBook(null);
+        setModalStatus(false);
     }
 
     return (
@@ -45,15 +51,18 @@ function LibraryList() {
                         <Link to={`/edit/${element.id}`}>
                             <button>Edit</button>
                         </Link>
-                            <button onClick={()=>deleteModal(element.id)}>Delete</button>
+                            <button onClick={() => deleteModal(element)}>Delete</button>
                     </span>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            {deleteButtonId != null && (<LibraryDelete data = {deleteButtonId} status ={modalStatus}></LibraryDelete>)}
-
+            <LibraryDelete
+                show={modalStatus}
+                handleClose={closeModal}
+                selectedBook={selectedBook}
+            ></LibraryDelete>
         </>);
 }
 

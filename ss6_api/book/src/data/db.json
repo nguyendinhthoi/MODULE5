@@ -3,21 +3,6 @@
     {
       "title": "qwewqe",
       "quantity": 12,
-      "id": 3
-    },
-    {
-      "title": "qwewqe",
-      "quantity": 12,
-      "id": 4
-    },
-    {
-      "title": "qwewqe",
-      "quantity": 12,
-      "id": 5
-    },
-    {
-      "title": "qwewqe",
-      "quantity": 12,
       "id": 6
     },
     {
@@ -36,49 +21,6 @@
       "id": 9
     },
     {
-      "title": "qwewqe",
-      "quantity": 12,
-      "id": 10
-    },
-    {
-      "title": "qwe",
-      "quantity": 1,
-      "id": 11
-    },
-    {
-      "title": "qwe",
-      "quantity": 1,
-      "id": 12
-    },
-    {
-      "title": "thoi",
-      "quantity": 123,
-      "id": 13
-    },
-    {
-      "title": "thoi",
-      "quantity": 123,
-      "id": 14
-    },
-    {
-      "title": "ket qua",
-      "quantity": 0,
-      "id": 15
-    },
-    {
-      "title": "chot so",
-      "quantity": 0,
-      "id": 16
-    },
-    {
-      "title": "chot soroi",
-      "quantity": 0,
-      "id": 17
-    },
-    {
-      "id": 18
-    },
-    {
       "id": 19
     },
     {
@@ -91,30 +33,10 @@
       "id": 22
     },
     {
-      "title": "33",
-      "quantity": 3,
-      "id": 23
-    },
-    {
       "id": 24
     },
     {
       "id": 25
-    },
-    {
-      "title": "thôi",
-      "quantity": 0,
-      "id": 26
-    },
-    {
-      "title": "ok",
-      "quantity": 1,
-      "id": 27
-    },
-    {
-      "id": 28,
-      "title": "json-server",
-      "quantity": 123
     }
   ]
 }
