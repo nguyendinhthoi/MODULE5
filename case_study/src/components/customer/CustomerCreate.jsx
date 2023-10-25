@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as homeService from "../../service/HomeService.jsx"
 import {Link, useNavigate} from "react-router-dom";
@@ -8,8 +8,16 @@ import * as Yup from "yup"
 
 function CustomerCreate() {
     const navigate = useNavigate();
+    const [customerType, setCustomerType] = useState([])
+
     const createCustomer = async (data) => {
-        const res = await homeService.createCustomer(data)
+        const newCustomer = {
+            ...data,
+            customerType: {
+                id: data.customerType
+            }
+        }
+        const res = await homeService.create(newCustomer, 1)
         if (res.status === 201) {
             navigate("/customer")
             toast("Created successfully")
@@ -17,41 +25,70 @@ function CustomerCreate() {
             toast.error("Create fail")
         }
     }
+    useEffect(() => {
+        getAllCustomerType();
+    }, []);
+
+    const getAllCustomerType = async () => {
+        const res = await homeService.getAllCustomerType();
+        setCustomerType(res);
+    }
+
+
     const formCenter = {
         marginTop: '100px',  // Add margin-top
     }
+    const headingStyle = {
+        fontSize: '1.5rem', // Font size for the heading
+        margin: '0', // Remove margin for the heading
+        letterSpacing: '1px', // Add slight letter-spacing for style
+        textTransform: 'uppercase', // Uppercase the heading text
+        fontWeight: 'bold', // Make the heading text bold
+        color: '#a6682d', // Adjust the text color to complement the background
+        textAlign: 'center'
+    };
+    const initialValues = {
+        fullName: "",
+        dateOfBirth: "",
+        gender: "Male",
+        idCardNumber: "",
+        phoneNumber: "",
+        email: "",
+        customerType: {
+            id: 1,
+        },
+        address: ""
+    }
+    const validationSchema = {
+        fullName: Yup.string()
+            .required("Not Empty")
+            .matches(/^[A-Z][a-z]+(\s[A-Z][a-z]+)+$/, "Must capitalize the first letter"),
+        dateOfBirth: Yup.string()
+            .required("Not Empty"),
+        idCardNumber: Yup.string()
+            .required("Not Empty")
+            .matches(/^\d{9}|\d{12}$/, "9 or 12 numbers"),
+        phoneNumber: Yup.string()
+            .required("Not Empty")
+            .matches(/^(?:\(\d+\)\+)?(09[01]\d{7}|(84)\+09[01]\d{7})$/, "The phone number must be " +
+                "in the correct format 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx"),
+        address: Yup.string()
+            .required("Not Empty"),
+        email: Yup.string()
+            .required("Email is required")
+            .matches(/^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$/, "Invalid email address"),
+    };
     return (
         <>
-            <Formik initialValues={{
-                fullName: "",
-                dateOfBirth: "",
-                gender: "Male",
-                idCardNumber: "",
-                phoneNumber: "",
-                email: "",
-                customerType: "Member",
-                address: ""
-            }} onSubmit={(values) => {
-                createCustomer(values)
-            }} validationSchema={Yup.object({
-                fullName: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^[A-Z][a-z]+(\s[A-Z][a-z]+)+$/, "Must capitalize the first letter"),
-                dateOfBirth: Yup.string()
-                    .required("Not Empty"),
-                idCardNumber: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^\d{9}|\d{12}$/, "9 or 12 numbers"),
-                phoneNumber: Yup.string()
-                    .required("Not Empty")
-                    .matches(/^(?:\(\d+\)\+)?(09[01]\d{7}|(84)\+09[01]\d{7})$/, "The phone number must be " +
-                        "in the correct format 090xxxxxxx or 091xxxxxxx or (84)+90xxxxxxx or (84)+91xxxxxxx"),
-                address: Yup.string()
-                    .required("Not Empty"),
-                email: Yup.string()
-                    .required("Email is required")
-                    .matches(/^[\w\-.]+@([\w-]+\.)+[\w-]{2,}$/, "Invalid email address"),
-            })}
+            <h3 style={headingStyle}>Create Customer</h3>
+            <Formik initialValues={initialValues} onSubmit={(values) => {
+                let newCustomer = {
+                    ...values,
+                    customerType: JSON.parse(values.customerType)
+                }
+                console.log(newCustomer)
+                createCustomer(newCustomer)
+            }} validationSchema={Yup.object(validationSchema)}
             >
                 <Form className="container" style={formCenter}>
                     <div className="row">
@@ -128,53 +165,15 @@ function CustomerCreate() {
 
                             <div className="mb-3">
                                 <label className="form-label">Customer Type</label>
-                                <div className="form-check">
+                                <div>
                                     <Field
-                                        type="radio"
+                                        as="select"
                                         name="customerType"
-                                        id="customerType1"
-                                        value="Diamond"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType1" className="form-check-label">
-                                        Diamond
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType2"
-                                        value="Platinum"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType2" className="form-check-label">
-                                        Platinum
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType3"
-                                        value="Silver"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType3" className="form-check-label">
-                                        Silver
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <Field
-                                        type="radio"
-                                        name="customerType"
-                                        id="customerType4"
-                                        value="Member"
-                                        className="form-check-input"
-                                    />
-                                    <label htmlFor="customerType4" className="form-check-label">
-                                        Member
-                                    </label>
+                                    >
+                                        {customerType.map((type) => (
+                                            <option key={type.id} value={type.id}>{type.name}</option>
+                                        ))}
+                                    </Field>
                                 </div>
                             </div>
 
